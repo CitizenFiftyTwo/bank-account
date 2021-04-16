@@ -1,14 +1,24 @@
 package domain;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class AccountTest {
-    
+
     Account account = new Account();
+
+    @Test
+    public void instanciate_account_with_specified_amount_should_be_ok() {
+        Amount amount = Amount.of(42);
+
+        Account account = Account.withBalance(amount);
+
+        assertThat(account.getBalance()).isEqualTo(amount);
+    }
 
     @DisplayName("Deposit money is OK")
     @ParameterizedTest(name = "Deposit {0} and {1} in account should result with {2} in balance")
