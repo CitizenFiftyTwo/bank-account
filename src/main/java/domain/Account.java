@@ -22,12 +22,18 @@ public class Account {
         registerDepositOperation(amount);
     }
 
-    private void registerDepositOperation(Amount amount) {
-        operations.add(new Operation(OperationType.DEPOSIT, LocalDate.now(), amount, balance));
-    }
-
     public void retrieveMoney(Amount amount) {
         balance = balance.substract(amount);
+        registerWithdrawOperation(amount);
+
+    }
+
+    private void registerWithdrawOperation(Amount amount) {
+        operations.add(new Operation(OperationType.WITHDRAW, LocalDate.now(), amount, balance));
+    }
+
+    private void registerDepositOperation(Amount amount) {
+        operations.add(new Operation(OperationType.DEPOSIT, LocalDate.now(), amount, balance));
     }
 
     public Amount getBalance() {

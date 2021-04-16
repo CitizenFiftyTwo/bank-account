@@ -6,6 +6,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import static enums.OperationType.DEPOSIT;
+import static enums.OperationType.WITHDRAW;
 import static java.time.LocalDate.now;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -73,7 +74,7 @@ class AccountTest {
 
     @DisplayName("Deposit money should register a deposit operation in account")
     @Test
-    public void depositMoney_should_register_an_operation_of_type_deposit_in_account() {
+    public void depositMoney_should_register_a_deposit_operation_in_account() {
         Account account = new Account();
 
         Amount depositAmount = Amount.of(42);
@@ -81,6 +82,21 @@ class AccountTest {
         Operation expectedOperation = new Operation(DEPOSIT, now(), depositAmount, expectedBalanceValue);
 
         account.deposit(depositAmount);
+
+        assertThat(account.getOperations()).hasSize(1);
+        assertThat(account.getOperations().get(0)).isEqualTo(expectedOperation);
+    }
+
+    @DisplayName("Retrieve money should register a withdraw operation in account")
+    @Test
+    public void retrieveMoney_should_register_a_withdraw_operation_in_account() {
+        Account account = Account.withBalance(Amount.of(42));
+
+        Amount retrievedAmount = Amount.of(41);
+        Amount expectedBalanceValue = Amount.of(1);
+        Operation expectedOperation = new Operation(WITHDRAW, now(), retrievedAmount, expectedBalanceValue);
+
+        account.retrieveMoney(retrievedAmount);
 
         assertThat(account.getOperations()).hasSize(1);
         assertThat(account.getOperations().get(0)).isEqualTo(expectedOperation);
