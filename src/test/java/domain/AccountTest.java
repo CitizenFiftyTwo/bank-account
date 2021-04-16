@@ -67,7 +67,7 @@ class AccountTest {
                                                                   double expectedBalanceValue) {
         Account account = Account.withBalance(Amount.of(initialBalanceValue));
 
-        account.retrieveMoney(Amount.of(retrievedAmountValue));
+        account.retrieve(Amount.of(retrievedAmountValue));
 
         assertThat(account.getBalance()).isEqualTo(Amount.of(expectedBalanceValue));
     }
@@ -96,7 +96,7 @@ class AccountTest {
         Amount expectedBalanceValue = Amount.of(1);
         Operation expectedOperation = new Operation(WITHDRAW, now(), retrievedAmount, expectedBalanceValue);
 
-        account.retrieveMoney(retrievedAmount);
+        account.retrieve(retrievedAmount);
 
         assertThat(account.getOperations()).hasSize(1);
         assertThat(account.getOperations().get(0)).isEqualTo(expectedOperation);

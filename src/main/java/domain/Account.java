@@ -22,7 +22,7 @@ public class Account {
         registerDepositOperation(amount);
     }
 
-    public void retrieveMoney(Amount amount) {
+    public void retrieve(Amount amount) {
         balance = balance.substract(amount);
         registerWithdrawOperation(amount);
 
