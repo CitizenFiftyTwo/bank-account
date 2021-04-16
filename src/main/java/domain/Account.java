@@ -14,6 +14,10 @@ public class Account {
         balance = balance.add(amount);
     }
 
+    public void retrieveMoney(Amount amount) {
+        balance = balance.substract(amount);
+    }
+
     public Amount getBalance() {
         return balance;
     }

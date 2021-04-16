@@ -1,6 +1,7 @@
 package domain;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -45,5 +46,14 @@ class AccountTest {
         account.deposit(Amount.of(depositAmountValue));
 
         assertThat(account.getBalance()).isEqualTo(Amount.of(expectedBalanceValue));
+    }
+
+    @Test
+    public void retrieveMoney_should_substract_money_from_balance() {
+        Account account = Account.withBalance(Amount.of(42));
+
+        account.retrieveMoney(Amount.of(41));
+
+        assertThat(account.getBalance()).isEqualTo(Amount.of(1));
     }
 }

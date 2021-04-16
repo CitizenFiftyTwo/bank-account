@@ -20,16 +20,15 @@ public class Amount {
         return new Amount(value.add(amount.value));
     }
 
+    public Amount substract(Amount amount) {
+        return new Amount(value.subtract(amount.value));
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Amount amount = (Amount) o;
         return Objects.equals(value, amount.value);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(value);
     }
 }
