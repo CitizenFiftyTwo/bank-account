@@ -1,6 +1,7 @@
 package domain;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Objects;
 
 public class Amount {
@@ -12,7 +13,7 @@ public class Amount {
     }
 
     public static Amount of(double value) {
-        return new Amount(BigDecimal.valueOf(value));
+        return new Amount(BigDecimal.valueOf(value).setScale(2, RoundingMode.HALF_UP));
     }
 
     public Amount add(Amount amount) {
