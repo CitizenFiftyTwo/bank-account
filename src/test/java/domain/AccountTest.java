@@ -1,9 +1,12 @@
 package domain;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import static enums.OperationType.DEPOSIT;
+import static java.time.LocalDate.now;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class AccountTest {
@@ -66,5 +69,20 @@ class AccountTest {
         account.retrieveMoney(Amount.of(retrievedAmountValue));
 
         assertThat(account.getBalance()).isEqualTo(Amount.of(expectedBalanceValue));
+    }
+
+    @DisplayName("Deposit money should register a deposit operation in account")
+    @Test
+    public void depositMoney_should_register_an_operation_of_type_deposit_in_account() {
+        Account account = new Account();
+
+        Amount depositAmount = Amount.of(42);
+        Amount expectedBalanceValue = Amount.of(42);
+        Operation expectedOperation = new Operation(DEPOSIT, now(), depositAmount, expectedBalanceValue);
+
+        account.deposit(depositAmount);
+
+        assertThat(account.getOperations()).hasSize(1);
+        assertThat(account.getOperations().get(0)).isEqualTo(expectedOperation);
     }
 }
