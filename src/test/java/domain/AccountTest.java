@@ -1,7 +1,6 @@
 package domain;
 
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -11,13 +10,21 @@ class AccountTest {
 
     Account account = new Account();
 
-    @Test
-    public void instanciate_account_with_specified_amount_should_be_ok() {
-        Amount amount = Amount.of(42);
+    @DisplayName("Instanciate account with a specified amount is OK")
+    @ParameterizedTest(name = "Instanciate an account with {0} in balance should result with {1} in balance")
+    @CsvSource({
+            "0, 0.00",
+            "42, 42.00",
+            "42.5, 42.50",
+            "42.55, 42.55",
+            "49.994, 49.99",
+            "49.995, 50.00",
+    })
+    public void instanciate_account_with_specified_amount_should_be_ok(double initialBalanceValue,
+                                                                       double expectedBalanceValue) {
+        Account account = Account.withBalance(Amount.of(initialBalanceValue));
 
-        Account account = Account.withBalance(amount);
-
-        assertThat(account.getBalance()).isEqualTo(amount);
+        assertThat(account.getBalance()).isEqualTo(Amount.of(expectedBalanceValue));
     }
 
     @DisplayName("Deposit money is OK")
