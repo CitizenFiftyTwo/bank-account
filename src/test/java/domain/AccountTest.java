@@ -50,6 +50,7 @@ class AccountTest {
     @DisplayName("Retrieve money is OK")
     @ParameterizedTest(name = "Retrieve {1} in account with {0} should result with {2} in balance")
     @CsvSource({
+            "0, 1, -1.00",
             "42, 41, 1.00",
             "42.5, 41, 1.50",
             "42.5, 41.5, 1.00",
