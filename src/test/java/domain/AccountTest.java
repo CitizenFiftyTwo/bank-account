@@ -2,8 +2,6 @@ package domain;
 
 import org.junit.jupiter.api.Test;
 
-import java.math.BigDecimal;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 class AccountTest {
@@ -12,7 +10,7 @@ class AccountTest {
     
     @Test
     public void depositMoney_should_add_money_to_balance() {
-        BigDecimal depositAmount = BigDecimal.valueOf(42);
+        Amount depositAmount = Amount.of(42);
 
         account.deposit(depositAmount);
 

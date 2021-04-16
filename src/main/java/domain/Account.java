@@ -1,16 +1,14 @@
 package domain;
 
-import java.math.BigDecimal;
-
 public class Account {
 
-    private BigDecimal balance = BigDecimal.valueOf(0);
+    private Amount balance = Amount.of(0);
 
-    public void deposit(BigDecimal amount) {
+    public void deposit(Amount amount) {
         balance = balance.add(amount);
     }
 
-    public BigDecimal getBalance() {
+    public Amount getBalance() {
         return balance;
     }
 }
