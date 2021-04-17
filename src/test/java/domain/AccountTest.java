@@ -5,6 +5,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import static enums.OperationType.DEPOSIT;
 import static enums.OperationType.WITHDRAW;
 import static java.time.LocalDate.now;
@@ -100,5 +103,22 @@ class AccountTest {
 
         assertThat(account.getOperations()).hasSize(1);
         assertThat(account.getOperations().get(0)).isEqualTo(expectedOperation);
+    }
+
+    @DisplayName("Print history should correctly print operations' informations")
+    @Test
+    public void printHistory_should_correctly_print_operations() {
+        Account account = new Account();
+
+        String today = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        account.deposit(Amount.of(1));
+        account.retrieve(Amount.of(1));
+
+        String expectedResult = "DEPOSIT | " + today + " | 1.00 | 1.00\n" +
+                "WITHDRAW | " + today + " | 1.00 | 0.00";
+
+        String printResult = account.printHistory();
+
+        assertThat(printResult).isEqualTo(expectedResult);
     }
 }

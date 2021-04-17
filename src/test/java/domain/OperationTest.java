@@ -20,17 +20,6 @@ class OperationTest {
 
         String printResult = operation.print();
 
-        printTestResult(expectedResult, printResult);
         assertThat(printResult).isEqualTo(expectedResult);
     }
-
-    private void printTestResult(String expected, String actual) {
-        System.out.println("Expected:");
-        System.out.println(expected);
-        System.out.println();
-        System.out.println("Actual:");
-        System.out.println(actual);
-        System.out.println();
-    }
-
 }

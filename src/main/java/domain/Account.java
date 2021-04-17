@@ -5,8 +5,11 @@ import enums.OperationType;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Account {
+
+    public static final String OPERATION_SEPARATOR = "\n";
 
     private Amount balance = Amount.of(0);
     private final List<Operation> operations = new ArrayList<>();
@@ -34,6 +37,13 @@ public class Account {
 
     private void registerDepositOperation(Amount amount) {
         operations.add(new Operation(OperationType.DEPOSIT, LocalDate.now(), amount, balance));
+    }
+
+    public String printHistory() {
+        return operations.stream()
+                .map(Operation::print)
+                .map(Object::toString)
+                .collect(Collectors.joining(OPERATION_SEPARATOR));
     }
 
     public Amount getBalance() {
