@@ -3,9 +3,12 @@ package domain;
 import enums.OperationType;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class Operation {
+
+    private static final String COLUMN_SEPARATOR = " | ";
 
     private final OperationType type;
     private final LocalDate date;
@@ -17,6 +20,15 @@ public class Operation {
         this.date = date;
         this.amount = amount;
         this.balance = balance;
+    }
+
+    public String print() {
+        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        return type.name() + COLUMN_SEPARATOR +
+                date.format(formatters) + COLUMN_SEPARATOR +
+                amount.getValue() + COLUMN_SEPARATOR +
+                balance.getValue();
     }
 
     @Override
