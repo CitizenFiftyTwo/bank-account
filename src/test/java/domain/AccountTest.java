@@ -27,7 +27,7 @@ class AccountTest {
     })
     public void instanciate_account_with_specified_amount_should_be_ok(double initialBalanceValue,
                                                                        double expectedBalanceValue) {
-        Account account = Account.withBalance(Amount.of(initialBalanceValue));
+        Account account = Account.withInitialAmount(Amount.of(initialBalanceValue));
 
         assertThat(account.getBalance()).isEqualTo(Amount.of(expectedBalanceValue));
     }
@@ -47,7 +47,7 @@ class AccountTest {
     public void depositMoney_should_add_money_to_balance(double initialBalanceValue,
                                                          double depositAmountValue,
                                                          double expectedBalanceValue) {
-        Account account = Account.withBalance(Amount.of(initialBalanceValue));
+        Account account = Account.withInitialAmount(Amount.of(initialBalanceValue));
 
         account.deposit(Amount.of(depositAmountValue));
 
@@ -68,7 +68,7 @@ class AccountTest {
     public void retrieveMoney_should_substract_money_from_balance(double initialBalanceValue,
                                                                   double retrievedAmountValue,
                                                                   double expectedBalanceValue) {
-        Account account = Account.withBalance(Amount.of(initialBalanceValue));
+        Account account = Account.withInitialAmount(Amount.of(initialBalanceValue));
 
         account.retrieve(Amount.of(retrievedAmountValue));
 
@@ -93,7 +93,7 @@ class AccountTest {
     @DisplayName("Retrieve money should register a withdraw operation in account")
     @Test
     public void retrieveMoney_should_register_a_withdraw_operation_in_account() {
-        Account account = Account.withBalance(Amount.of(42));
+        Account account = Account.withInitialAmount(Amount.of(42));
 
         Amount retrievedAmount = Amount.of(41);
         Amount expectedBalanceValue = Amount.of(1);

@@ -14,7 +14,7 @@ public class Account {
     private Amount balance = Amount.of(0);
     private final List<Operation> operations = new ArrayList<>();
 
-    public static Account withBalance(Amount amount) {
+    public static Account withInitialAmount(Amount amount) {
         Account account = new Account();
         account.balance = amount;
         return account;
