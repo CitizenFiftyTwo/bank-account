@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 
-import static enums.OperationType.DEPOSIT;
+import static domain.OperationType.DEPOSIT;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class OperationTest {

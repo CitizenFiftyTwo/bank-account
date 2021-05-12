@@ -8,8 +8,8 @@ import org.junit.jupiter.params.provider.CsvSource;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import static enums.OperationType.DEPOSIT;
-import static enums.OperationType.WITHDRAW;
+import static domain.OperationType.DEPOSIT;
+import static domain.OperationType.WITHDRAW;
 import static java.time.LocalDate.now;
 import static org.assertj.core.api.Assertions.assertThat;
 
