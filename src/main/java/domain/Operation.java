@@ -39,4 +39,14 @@ public class Operation {
                 Objects.equals(amount, operation.amount) &&
                 Objects.equals(balance, operation.balance);
     }
+
+    @Override
+    public String toString() {
+        return "Operation{" +
+                "type=" + type +
+                ", date=" + date +
+                ", amount=" + amount +
+                ", balance=" + balance +
+                '}';
+    }
 }

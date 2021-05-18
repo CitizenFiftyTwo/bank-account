@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static domain.OperationType.*;
+
 public class Account {
 
     public static final String OPERATION_SEPARATOR = "\n";
@@ -24,17 +26,24 @@ public class Account {
     }
 
     public void retrieve(Amount amount) {
-        balance = balance.substract(amount);
-        registerWithdrawOperation(amount);
+        if (balance.isGreaterThanOrEquals(amount)) {
+            balance = balance.substract(amount);
+            registerWithdrawOperation(amount);
+        } else {
+            registerRefusedOperation(amount);
+        }
+    }
 
+    private void registerRefusedOperation(Amount amount) {
+        operations.add(new Operation(REFUSED, LocalDate.now(), amount, balance));
     }
 
     private void registerWithdrawOperation(Amount amount) {
-        operations.add(new Operation(OperationType.WITHDRAW, LocalDate.now(), amount, balance));
+        operations.add(new Operation(WITHDRAW, LocalDate.now(), amount, balance));
     }
 
     private void registerDepositOperation(Amount amount) {
-        operations.add(new Operation(OperationType.DEPOSIT, LocalDate.now(), amount, balance));
+        operations.add(new Operation(DEPOSIT, LocalDate.now(), amount, balance));
     }
 
     public String printHistory() {

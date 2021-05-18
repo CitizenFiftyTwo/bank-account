@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import static domain.OperationType.DEPOSIT;
+import static domain.OperationType.REFUSED;
 import static domain.OperationType.WITHDRAW;
 import static java.time.LocalDate.now;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -57,7 +58,6 @@ class AccountTest {
     @DisplayName("Retrieve money is OK")
     @ParameterizedTest(name = "Retrieve {1} in account with {0} should result with {2} in balance")
     @CsvSource({
-            "0, 1, -1.00",
             "42, 41, 1.00",
             "42.5, 41, 1.50",
             "42.5, 41.5, 1.00",
@@ -116,6 +116,23 @@ class AccountTest {
 
         String expectedResult = "DEPOSIT | " + today + " | 1.00 | 1.00\n" +
                 "WITHDRAW | " + today + " | 1.00 | 0.00";
+
+        String printResult = account.printHistory();
+
+        assertThat(printResult).isEqualTo(expectedResult);
+    }
+
+    @Test
+    public void retrieveMoney_in_account_with_unsufficient_amount_should_be_refused() {
+        Amount initialAmount = Amount.of(0);
+        Amount retrievedAmount = Amount.of(50);
+        String today = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+
+        Account account = Account.withInitialAmount(initialAmount);
+
+        account.retrieve(retrievedAmount);
+
+        String expectedResult = "REFUSED | " + today + " | 50.00 | 0.00";
 
         String printResult = account.printHistory();
 

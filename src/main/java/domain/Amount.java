@@ -24,6 +24,10 @@ public class Amount {
         return new Amount(value.subtract(amount.value));
     }
 
+    public boolean isGreaterThanOrEquals(Amount amount) {
+        return value.compareTo(amount.getValue()) >= 0;
+    }
+
     public BigDecimal getValue() {
         return value;
     }
@@ -34,5 +38,12 @@ public class Amount {
         if (o == null || getClass() != o.getClass()) return false;
         Amount amount = (Amount) o;
         return Objects.equals(value, amount.value);
+    }
+
+    @Override
+    public String toString() {
+        return "Amount{" +
+                "value=" + value +
+                '}';
     }
 }
